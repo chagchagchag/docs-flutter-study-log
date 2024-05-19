@@ -333,3 +333,39 @@ class HelloworldWidget extends StatelessWidget {
 변경된 화면은 아래와 같습니다.
 
 ![](./img/helloworld/14.png)
+
+<br/>
+
+
+
+## Hot Reload 와 Hot Restart
+
+Hot Reload, Hot Restart 모두 앱을 Re Compile 한 후 빌드하는 것이 아닙니다. 따라서 dependency 를 추가했다거나, 라이브러리 수정, Asset 추가 등과 같은 상황에는 적용되지 않습니다. 따라서 이런 경우에는 재시작해야 합니다.
+
+![](./img/helloworld/15.png)
+
+<br/>
+
+만약 지나치게 많은 코드의 변경사항을 했을 경우 Reload → Restart 하는 순서로 실행중인 프로세스가 상위 재시동을 요청할 수도 있고, 상태관리를 하는 기능일 때에는 Hot Reload, Hot Restart 기능의 사용은 가급적 주의가 필요합니다.<br/>
+
+Hot Reload, Hot Restart 기능은 Dart 의 JIT 컴파일러를 이용해 앱의 컴파일 과정 없이 코드의 변경사항을 즉시 반영하는 기능입니다. 참고로 Dart 언어는 JIT 컴파일러를 이용해서 프로그램의 실행 중에 컴파일을 할 수도 있고, AOT 컴파일러를 이용해서 전체 코드를 컴파일 한 후에 실행할 수도 있습니다. 주로 JIT 컴파일러는 개발 중에 사용되며, AOT 컴파일러는 실재 배포될 애플리케이션을 실행하는 데에 사용됩니다.<br/>
+
+
+
+### Hot Reload
+
+![](./img/helloworld/16.png)
+
+
+
+Hot Reload 버튼은 위와 같은 아이콘이 적용된 버튼입니다. Hot Reload 버튼을 누르면 Ctrl + S 로 소스코드의 변경사항을 저장될 때마다 변경된 부분이 적용됩니다.<br/>
+
+앱의 상태가 유지된 상태로 코드의 변경사항을 확인하면서 빠르게 개발을 수행할 수 있습니다. 주로 UI 수정에 많이 사용합니다.<br/>
+
+
+
+### Hot Restart
+
+![](./img/helloworld/17.png)
+
+Hot Restart 버튼은 위와 같은 아이콘이 적용된 버튼입니다. Hot Restart 버튼을 누르면 Ctrl + S 로 소스코드의 변경사항을 저장할 때마다 Restart 됩니다. 앱의 모든 상태가 초기화되고, 앱의 코드 변경사항이 반영됩니다.

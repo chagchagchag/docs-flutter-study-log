@@ -1,4 +1,7 @@
 {
     "0.setup" : "설치 & 세팅",
-    "1.hello" : "helloworld flutter"
+    "0.avd-manager": "AVD Manager Setting",
+    "1.hello" : "helloworld flutter",
+    "2.design-guide": "Design Guide",
+    "3.widgets" : "Widget"
 }

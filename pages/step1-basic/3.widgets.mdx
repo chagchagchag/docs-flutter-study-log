@@ -1,0 +1,163 @@
+- MatiralApp, Scaffold widget
+- Container, Center widget
+
+<br/>
+
+
+
+## MaterialApp Widget
+
+> 참고 : [api.flutter.dev - MaterialApp class](https://api.flutter.dev/flutter/material/MaterialApp-class.html)
+
+[api.flutter.dev - MaterialApp class](https://api.flutter.dev/flutter/material/MaterialApp-class.html) 에서는 MaterialApp 내의 인자값에 대해서 아래와 같이 설명하고 있습니다.
+
+The [MaterialApp](https://api.flutter.dev/flutter/material/MaterialApp-class.html) configures the top-level [Navigator](https://api.flutter.dev/flutter/widgets/Navigator-class.html) to search for routes in the following order:
+
+1. For the `/` route, the [home](https://api.flutter.dev/flutter/material/MaterialApp/home.html) property, if non-null, is used.
+2. Otherwise, the [routes](https://api.flutter.dev/flutter/material/MaterialApp/routes.html) table is used, if it has an entry for the route.
+3. Otherwise, [onGenerateRoute](https://api.flutter.dev/flutter/material/MaterialApp/onGenerateRoute.html) is called, if provided. It should return a non-null value for any *valid* route not handled by [home](https://api.flutter.dev/flutter/material/MaterialApp/home.html) and [routes](https://api.flutter.dev/flutter/material/MaterialApp/routes.html).
+4. Finally if all else fails [onUnknownRoute](https://api.flutter.dev/flutter/material/MaterialApp/onUnknownRoute.html) is called.
+
+<br/>
+
+
+
+이 외에도 [Properties](https://api.flutter.dev/flutter/material/MaterialApp-class.html#instance-properties) 섹션을 보면 다양한 인자값에 대해 설명하고 있습니다.<br/>
+
+
+
+home
+
+- 앱을 제일 처음 실행했을 때 진입하는 기본 route 를 home 이라고 이야기합니다.
+
+routes
+
+- 앱 내에서 화면이 이동될 때 이동될 경로를 route 라고 이야기합니다.
+
+color, theme
+
+- color 또는 theme 을 지정해줄 수 있습니다.
+- 일반적으로 theme 객체를 지정해서 통일성을 부여합니다.
+
+<br/>
+
+
+
+## Scaffold Widget
+
+Scaffold 는 앱을 구성할 때 쓰이는 도화지(캔버스) 같은 존재입니다. <br/>
+
+e.g.
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(title: Center(child: Text('Helloworld App Bar'),)),
+      body: HelloworldWidget(),
+    ),
+  ));
+}
+
+class HelloworldWidget extends StatelessWidget {
+  const HelloworldWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Center(
+        child: Text(
+          'Hello, Flutter',
+          style: TextStyle(
+            color: Colors.blue,
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+Scaffold 내에 appBar, body 를 추가해줬습니다.<br/>
+
+
+
+위의 실행 결과는 아래와 같습니다.
+
+![](./img/widgets/1.png)
+
+Scaffold 위젯은 위의 그림에서 빨간 테두리에 표시한 영역에 해당합니다. 마치 캔버스 같은 영역입니다.
+
+
+
+e.g. 2
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  print("Pressed!!");
+                },
+                icon: Icon(Icons.play_arrow))
+          ],
+          title: Center(
+            child: Text('Helloworld App Bar'),
+          )),
+      body: HelloworldWidget(),
+    ),
+  ));
+}
+
+class HelloworldWidget extends StatelessWidget {
+  const HelloworldWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Center(
+        child: Text(
+          'Hello, Flutter',
+          style: TextStyle(
+            color: Colors.blue,
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+
+
+
+
+## Container Widget
+
+
+
+
+
+
+
+<br/>
+
+
+
+
+
+## Center Widget
+
+
+
+
+
+
+
