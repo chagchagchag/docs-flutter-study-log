@@ -470,11 +470,271 @@ horizontal : 50
 
 
 
+### Decoration Widget
+
+이번에는 BoxDecoration 을 이용해서 경계선과 배경색을 지정해봅니다. 
+
+**`border_example.dart`**
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('Study Container'),
+      ),
+      body: CustomContainer(),
+    ),
+  ));
+}
+
+class CustomContainer extends StatelessWidget {
+  const CustomContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 300,
+      height: 300,
+      // color: Color(0xFF9AEC67), // decoration 과 color 는 같이 쓰는 것이 불가능
+      padding: EdgeInsets.fromLTRB(30, 50, 30, 5),
+      margin: EdgeInsets.symmetric(vertical: 120, horizontal: 50),
+      decoration: BoxDecoration(
+          color: Color(0xFF9AEC67),
+          border: Border.all(
+              color: Colors.black, width: 5, style: BorderStyle.solid),
+          borderRadius: BorderRadius.circular(20)),
+      child: Text('Container 영역'),
+    );
+  }
+}
+```
+
+<br/>
+
+
+
+이 코드의 출력결과는 아래와 같습니다.
+
+![](./img/widgets/11.png)
+
+<br/>
+
+
+
+borderRadius값을 200 으로 지정하면 모서리가 더 둥글고 뭉뚝해집니다.
+
+코드를 아래와 같이 수정해줍니다.
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('Study Container'),
+      ),
+      body: CustomContainer(),
+    ),
+  ));
+}
+
+class CustomContainer extends StatelessWidget {
+  const CustomContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 300,
+      height: 300,
+      // color: Color(0xFF9AEC67), // decoration 과 color 는 같이 쓰는 것이 불가능
+      padding: EdgeInsets.fromLTRB(30, 50, 30, 5),
+      margin: EdgeInsets.symmetric(vertical: 120, horizontal: 50),
+      decoration: BoxDecoration(
+          color: Color(0xFF9AEC67),
+          border: Border.all(
+              color: Colors.black, width: 5, style: BorderStyle.solid),
+          borderRadius: BorderRadius.circular(200)),
+      child: Text('Container 영역'),
+    );
+  }
+}
+```
+
+<br/>
+
+
+
+출력결과는 아래와 같이 변합니다.
+
+![](./img/widgets/12.png)
+
+<br/>
+
+
+
+이번에는 그림자효과를 주어봅니다.
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('Study Container'),
+      ),
+      body: CustomContainer(),
+    ),
+  ));
+}
+
+class CustomContainer extends StatelessWidget {
+  const CustomContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 300,
+      height: 300,
+      // color: Color(0xFF9AEC67), // decoration 과 color 는 같이 쓰는 것이 불가능
+      padding: EdgeInsets.fromLTRB(30, 50, 30, 5),
+      margin: EdgeInsets.symmetric(vertical: 120, horizontal: 50),
+      decoration: BoxDecoration(
+          color: Color(0xFF9AEC67),
+          border: Border.all(
+              color: Colors.black, width: 5, style: BorderStyle.solid),
+          borderRadius: BorderRadius.circular(200),
+          // (1) 변경된 부분
+          boxShadow: [
+            BoxShadow(
+                color: Colors.blue.withOpacity(0.6),
+                offset: Offset(6, 6),
+                blurRadius: 10,
+                spreadRadius: 10)
+          ]),
+      child: Text('Container 영역'),
+    );
+  }
+}
+```
+
+<br/>
+
+
+
+위 코드에서 변경된 부분은 `(1)` 의 영역입니다. boxShadow 속성에 대해서 BoxShadow 객체를 지정해줬습니다. 그림자의 색깔을 따로 지정해주면서 withOpacity(투명도) 를 통해서 투명하게 지정해줬습니다. 색깔을 지정하지 않으면 그림자는 기본적으로 검은색 색상으로 지정됩니다.
+
+![](./img/widgets/13.png)
+
+<br/>
+
+
+
 ## Center Widget
 
+Center widget 은 위젯을 가운데로 배치하는 위젯입니다. 
+
+아래와 같은 코드가 있다고 해보겠습니다.
+
+```dart
+import 'package:flutter/material.dart';
+
+void main(){
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('Study Center Widget'),
+      ),
+      body: CustomContainer(),
+    ),
+  ));
+}
+
+class CustomContainer extends StatelessWidget {
+  const CustomContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 190,
+      height: 190,
+      color: Color(0xFF9AEC67),
+      padding: EdgeInsets.fromLTRB(30, 50, 30, 5),
+      margin: EdgeInsets.symmetric(vertical: 120, horizontal: 50),
+      child: Text('Container 영역'),
+    );
+  }
+}
+```
+
+<br/>
+
+이 코드는 아래와 같이 출력됩니다.
+
+![](./img/widgets/14.png)
+
+<br/>
 
 
 
+이 위젯을 가운데로 위치시키려면 수동으로 사이즈를 계산해서 margin 을 지정할 수도 있겠지만, Center 위젯을 사용하면 가운데로 위치시키는 것이 가능합니다.<br/>
+
+Container 를 가운데로 위치시키기를 원하기 때문에 Container 위젯 위에 마우스 커서를 올려 둔 후 Alt + Enter 키를 누른 후 Center 위젯을 선택합니다.<br/>
+
+![](./img/widgets/15.png)
+
+<br/>
+
+
+
+이렇게 적용된 코드는 아래와 같습니다.
+
+```dart
+import 'package:flutter/material.dart';
+
+void main(){
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('Study Center Widget'),
+      ),
+      body: CustomContainer(),
+    ),
+  ));
+}
+
+class CustomContainer extends StatelessWidget {
+  const CustomContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: 190,
+        height: 190,
+        color: Color(0xFF9AEC67),
+        padding: EdgeInsets.fromLTRB(30, 50, 30, 5),
+        margin: EdgeInsets.symmetric(vertical: 120, horizontal: 50),
+        child: Text('Container 영역'),
+      ),
+    );
+  }
+}
+```
+
+<br/>
+
+
+
+Container 위젯이 가운데로 이동한 것을 확인가능합니다.
+
+![](./img/widgets/16.png)
+
+<br/>
 
 
 
