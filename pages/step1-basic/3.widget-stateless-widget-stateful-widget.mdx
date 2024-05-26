@@ -1,0 +1,215 @@
+## Widget, StatelessWidget, StatefulWidget
+
+<br/>
+
+
+
+## 참고자료
+
+- Stateful Widget, Stateless Widget
+
+
+
+<br/>
+
+
+
+## Widget
+
+- UI 를 표현하는 Dart 의 클래스
+- 화면에 나타나는 것에 대한 데이터와 설정이 모여 있습니다.
+
+플러터의 모든 요소는 위젯이며, 위젯이 위젯을 포함하며 위젯들이 모인 Widget Tree 를 기반으로 화면을 렌더링합니다.<br/>
+
+대표적인 Widget 들은 아래와 같습니다.
+
+- Scaffold, Stack, Row, Colum : 레이아웃
+- Center, Padding : 정렬, 패딩
+- Button, Toast, MenuDrawer : 구조
+- FadeInPhoto, Transform : 에니메이션
+- TextStyle, Color : 스타일
+
+
+
+<br/>
+
+
+
+## Stateless Widget
+
+상태가 없는 위젯을 의미합니다. 위젯을 어느 시점에 트리에서 제거할지 언제 리빌드할지가 외부로부터 결정됩니다.<br/>
+
+불변이라는 의미는 아니며, 외부의 정보에 따라서 변합니다. 다만 상태를 가지고 있지 않습니다. React 를 예로 들면 리덕스의 store,state 같은 상태변수를 가지고 있지 않은 컴포넌트를 의미합니다.<br/>
+
+Stateless Widget 은 vscode 또는 Android Studio 에서 제공하는 단축키로 쉽게 생성할수도 있고, 직접 작성해도 됩니다. Stateless Widget 은 아래의 두 요소로 이뤄집니다.
+
+- 생성자 (constructor)
+- build(BuildContext context) 메서드
+  - Widget 을 리턴하는 메서드입니다.
+  - build() 메서드가 리턴하는 Widget 으로 뷰를 Rendering 할 수 있습니다.
+
+
+
+<br/>
+
+
+
+## StatefulWidget
+
+- `State` 객체를 갖는 위젯
+- setState() 메서드를 가지며, setState() 를 통해서 상태에 변화가 생기면 위젯이 다시 렌더링됩니다.
+
+
+
+기본적인 클래스의 구조는 아래와 같습니다.
+
+```dart
+class Example extends StatefulWidget {
+  // (1)
+  const Example({ Key? key }) : super(key: key);
+
+  // (2)
+  @override
+  _ExampleState createState() => _ExampleState();
+}
+
+// (3)
+class _ExampleState extends State<Example> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(...);
+  }
+}
+```
+
+<br/>
+
+(1)
+
+- 생성자입니다.
+
+(2) : \_ExampleState createState()  => \_ExampleState()
+
+- State 타입의 구체 객체인 \_ExampleState 객체를 새롭게 생성해서 return 합니다.
+- createState() 함수는 State 객체를 생성하는 역할을 합니다.
+
+(3) : class \_ExampleState extends State\<Example\> \{...\}
+
+- `Example` 위젯을 감싸는 `_ExampleState` 라는 이름의 State 객체를 생성했습니다.
+
+<br/>
+
+
+
+### setState - e.g.
+Android Studio 에서 Flutter Project 를 생성합니다.
+![](https://velog.velcdn.com/images/qpwoeiworker/post/d0cba075-6b90-4372-b68c-2e3635afc719/image.png)
+
+
+만들어진 예제 코드를 보면 아래와 같습니다. 아래 코드에서 (2) 로 표시한 부분이 setState() 를 사용하는 부분입니다.
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  // (1)
+  int _counter = 0;
+
+  // (2)
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        // (3)
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+```
+
+- (1) : 변경이 필요한 상태값을 State 객체 내부에 private 객체로 선언해줍니다. 
+- (2) : 상태 변경이 필요한 부분의 함수에서 setState() 함수를 호출합니다.
+- (3) : onPressed 이벤트에 대해서 `_incrementCounter()` 함수를 호출하도록 지정해줘서 onPressed 이벤트 발생시마다 setState() 함수가 호출되게 됩니다.
+
+<br/>
+
+
+
+
+## 참고
+### private 접근자
+dart 에서 클래스나 프로퍼티,메서드 앞에 언더바를 붙이면 private 를 의미합니다.
+
+```dart
+class Example extends StatefulWidget {
+  // (1)
+  const Example({ Key? key }) : super(key: key);
+
+  // (2)
+  @override
+  _ExampleState createState() => _ExampleState();
+}
+
+// (3)
+class _ExampleState extends State<Example> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(...);
+  }
+}
+```

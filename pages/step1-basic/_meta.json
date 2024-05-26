@@ -3,6 +3,7 @@
     "0.avd-manager": "AVD Manager Setting",
     "1.hello" : "helloworld flutter",
     "2.design-guide": "Design Guide",
+    "3.widget-stateless-widget-stateful-widget": "Widget, StatelessWidget, StatefulWidget",
     "3.widgets" : "Widget",
     "4.column-row" : "Column, Row",
     "5.pub.dev": "pub.dev"
